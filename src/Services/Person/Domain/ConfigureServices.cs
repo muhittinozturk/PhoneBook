@@ -7,11 +7,11 @@ namespace Domain
 {
     public static class ConfigureServices
     {
-        public static IServiceCollection AddDomainService(this IServiceCollection services)
+        public static void AddDomainService(this IServiceCollection services)
         {
             services.AddScoped<IValidator<Person>, PersonValidator>();
             services.AddValidatorsFromAssemblyContaining<PersonValidator>();
-            return services;
+            
         }
     }
 }
