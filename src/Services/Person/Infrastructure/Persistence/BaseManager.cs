@@ -41,9 +41,9 @@ namespace Infrastructure.Persistence
             return entry.State == EntityState.Modified;
         }
 
-        public async Task<int> SaveAsync()
+        public async Task<int> SaveAsync(CancellationToken token)
         {
-            return await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync(token);
         }
     }
 }

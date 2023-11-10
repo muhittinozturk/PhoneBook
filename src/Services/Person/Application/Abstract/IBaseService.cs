@@ -10,7 +10,7 @@ namespace Application.Abstract
         Task<T> GetByIdAsync(Guid id);
         bool Update(T entity);
         Task<bool> DeleteAsync(Guid id);
-        Task<int> SaveAsync();
+        Task<int> SaveAsync(CancellationToken token);
 
     }
 }
