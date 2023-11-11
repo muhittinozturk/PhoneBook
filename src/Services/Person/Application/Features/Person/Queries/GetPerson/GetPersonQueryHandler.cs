@@ -1,35 +1,29 @@
 ﻿using Application.Abstract;
-using Domain.Entities;
+using AutoMapper;
+using Domain.Exceptions;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Person.Queries.GetPerson
 {
     public class GetPersonQueryHandler : IRequestHandler<GetPersonQueryRequest, GetPersonQueryResponse>
     {
         private readonly IPersonService _personService;
-
-        public GetPersonQueryHandler(IPersonService personService)
+        private readonly IMapper _mapper;
+        public GetPersonQueryHandler(IPersonService personService, IMapper mapper)
         {
             _personService = personService;
+            _mapper = mapper;
         }
         public async Task<GetPersonQueryResponse> Handle(GetPersonQueryRequest request, CancellationToken cancellationToken)
         {
-            var person = await _personService.GetByIdAsync(request.PersonId);
+            var person = await _personService.GetByIdAsync(request.PersonId, p => p.Contacts);
+            if (person is null)
+                throw new PersonNotFoundExcepiton("Kişi bilgisi bulunamadı");
 
-            return new()
-            {
-                PersonId = person.UUID,
-                Company = person.Company,
-                FirstName = person.FirstName,
-                LastName = person.LastName,
-                Contacts = person.Contacts,
-            };
+            var response = _mapper.Map<GetPersonQueryResponse>(person);
+
+            return response;
+
         }
     }
 }

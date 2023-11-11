@@ -18,7 +18,7 @@ namespace Application.Features.Person.Commands.UpdatePerson
             var person = await _personService.GetByIdAsync(request.PersonId);
 
             if (person is null)
-                throw new PersonNotFoundExcepiton();
+                throw new PersonNotFoundExcepiton("Kişi bilgisi bulunamadı");
 
             person.FirstName = request.FirstName;
             person.LastName = request.LastName;

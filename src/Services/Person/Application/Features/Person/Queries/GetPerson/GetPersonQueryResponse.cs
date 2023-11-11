@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Dtos;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,6 @@ namespace Application.Features.Person.Queries.GetPerson
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Company { get; set; }
-        public List<Contact> Contacts { get; set; }
+        public List<GetPersonContactDto> Contacts { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Persistence.Contexts;
+using System.Linq.Expressions;
 
 namespace Infrastructure.Persistence
 {
@@ -33,7 +34,17 @@ namespace Infrastructure.Persistence
         }
 
         public IQueryable<T> GetAll() => Table;
-        public async Task<T> GetByIdAsync(Guid id) => await Table.FindAsync(id);
+        public async Task<T> GetByIdAsync(Guid id, Expression<Func<T, object>>? expression = null)
+        {
+            IQueryable<T> query = Table;
+
+            if (expression != null)
+            {
+                query = query.Include(expression);
+            }
+
+            return await query.FirstOrDefaultAsync(e => EF.Property<Guid>(e, "UUID") == id);
+        }
 
         public bool Update(T entity)
         {
