@@ -25,21 +25,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GatewayAPI", "src\ApiGatewa
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventBus", "EventBus", "{9D7E4B3B-6A70-4112-98D5-77AD08818F31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus", "src\BuildingBlocks\EventBus\EventBus\EventBus.csproj", "{7030A7C9-C62A-470C-AD46-CF7E663CCC2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBus", "src\BuildingBlocks\EventBus\EventBus\EventBus.csproj", "{7030A7C9-C62A-470C-AD46-CF7E663CCC2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus.RabbitMQ", "src\BuildingBlocks\EventBus\EventBus.RabbitMQ\EventBus.RabbitMQ.csproj", "{26473909-B979-4F37-A8CB-DA734D87EF75}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus.Common", "src\BuildingBlocks\EventBus\EventBus.Common\EventBus.Common.csproj", "{2E8B682F-5DC0-4F1B-A673-DFE255C406DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBus.RabbitMQ", "src\BuildingBlocks\EventBus\EventBus.RabbitMQ\EventBus.RabbitMQ.csproj", "{26473909-B979-4F37-A8CB-DA734D87EF75}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logging", "Logging", "{81AAD35A-081C-4D01-A6D9-184019C73502}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "src\BuildingBlocks\Logging\Logging\Logging.csproj", "{029902C9-AB49-40C3-9636-D430FFAC26A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logging", "src\BuildingBlocks\Logging\Logging\Logging.csproj", "{029902C9-AB49-40C3-9636-D430FFAC26A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services\Person\Application\Application.csproj", "{68AE915C-F3C3-4BBD-B817-1C7187DE8087}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "src\Services\Person\Application\Application.csproj", "{68AE915C-F3C3-4BBD-B817-1C7187DE8087}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Services\Person\Domain\Domain.csproj", "{4B549DED-1ADD-40E9-BF5F-3FDECE654DAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\Services\Person\Domain\Domain.csproj", "{4B549DED-1ADD-40E9-BF5F-3FDECE654DAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "src\Services\Person\Infrastructure\Infrastructure.csproj", "{89D18F84-7DFB-412F-8652-DBF5B5B680C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\Services\Person\Infrastructure\Infrastructure.csproj", "{89D18F84-7DFB-412F-8652-DBF5B5B680C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,10 +65,6 @@ Global
 		{26473909-B979-4F37-A8CB-DA734D87EF75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26473909-B979-4F37-A8CB-DA734D87EF75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26473909-B979-4F37-A8CB-DA734D87EF75}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2E8B682F-5DC0-4F1B-A673-DFE255C406DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E8B682F-5DC0-4F1B-A673-DFE255C406DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2E8B682F-5DC0-4F1B-A673-DFE255C406DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2E8B682F-5DC0-4F1B-A673-DFE255C406DA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{029902C9-AB49-40C3-9636-D430FFAC26A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{029902C9-AB49-40C3-9636-D430FFAC26A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{029902C9-AB49-40C3-9636-D430FFAC26A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -104,7 +98,6 @@ Global
 		{9D7E4B3B-6A70-4112-98D5-77AD08818F31} = {F113AC88-C63B-486A-8BC6-BCEE7DE3F84A}
 		{7030A7C9-C62A-470C-AD46-CF7E663CCC2F} = {9D7E4B3B-6A70-4112-98D5-77AD08818F31}
 		{26473909-B979-4F37-A8CB-DA734D87EF75} = {9D7E4B3B-6A70-4112-98D5-77AD08818F31}
-		{2E8B682F-5DC0-4F1B-A673-DFE255C406DA} = {9D7E4B3B-6A70-4112-98D5-77AD08818F31}
 		{81AAD35A-081C-4D01-A6D9-184019C73502} = {F113AC88-C63B-486A-8BC6-BCEE7DE3F84A}
 		{029902C9-AB49-40C3-9636-D430FFAC26A9} = {81AAD35A-081C-4D01-A6D9-184019C73502}
 		{68AE915C-F3C3-4BBD-B817-1C7187DE8087} = {B267B88E-2C01-4C17-834A-93D44C4501DF}
