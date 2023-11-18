@@ -1,6 +1,12 @@
+using EventBus;
+using EventBus.Abstractions;
+using EventBus.Event;
+using EventBus.RabbitMQ;
 using ReportAPI.Data;
 using ReportAPI.Entities;
 using ReportAPI.Enums;
+using ReportAPI.IntegrationEvents.Events;
+using ReportAPI.IntegrationEvents.IntegrationEvents;
 using ReportAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +15,19 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddScoped(typeof(ReportDbContext<>));
 builder.Services.AddScoped(typeof(IReportRepository<>), typeof(ReportRepository<>));
+
+
+builder.Services.AddTransient<ReportRequestResultIntegrationEventHandler>();
+builder.Services.AddSingleton<IEventBus>(provider =>
+{
+    Configuration config = new()
+    {
+        SubClientAppName = "ReportService"
+    };
+    return new EventBusRabbitMQ(provider, config);
+});
+
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -21,8 +40,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
+var eventBus = app.Services.GetRequiredService<IEventBus>();
+eventBus.Subscribe<ReportRequestResultIntegrationEvent, ReportRequestResultIntegrationEventHandler>();
 
 app.MapPost("/createReport", (HttpContext context, IReportRepository<Report> reportRepository) =>
 {
@@ -35,6 +54,10 @@ app.MapPost("/createReport", (HttpContext context, IReportRepository<Report> rep
     };
 
     reportRepository.Add(reportRequest);
+
+    IntegrationEvent reportRequestIntegrationEvent = new ReportRequestIntegrationEvent(reportId);
+
+    eventBus.Publish(reportRequestIntegrationEvent);
 
     return Results.Ok("Rapor talebi oluþturuldu.");
 });

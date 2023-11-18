@@ -3,6 +3,7 @@
     public enum ReportStatus
     {
         InProgress,
-        Completed
+        Completed,
+        Failed
     }
 }

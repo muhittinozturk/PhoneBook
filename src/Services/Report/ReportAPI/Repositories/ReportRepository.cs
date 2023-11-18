@@ -36,12 +36,32 @@ namespace ReportAPI.Repositories
 
         public void Update(T entity)
         {
-            //İhtiyaç yok
+            var filter = Builders<T>.Filter.Eq("_id", GetIdValue(entity));
+
+            var updateDefinition = Builders<T>.Update
+                .Set("_id", GetIdValue(entity))
+                .Set(x => x, entity);
+
+            _collection.UpdateOne(filter, updateDefinition);
         }
 
         public void Delete(Guid id)
         {
             _collection.DeleteOne(Builders<T>.Filter.Eq("_id", id));
+        }
+
+        private Guid GetIdValue(T entity)
+        {
+            var idProperty = entity.GetType().GetProperty("_id");
+
+            if (idProperty != null)
+            {
+                return (Guid)idProperty.GetValue(entity, null);
+            }
+            else
+            {
+                throw new ArgumentException("Entity must have _id property");
+            }
         }
     }
 }
