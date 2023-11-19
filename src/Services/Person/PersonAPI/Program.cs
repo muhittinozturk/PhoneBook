@@ -1,6 +1,12 @@
 using Persistence;
 using Domain;
 using Application;
+using Microsoft.Extensions.Configuration;
+using PersonAPI.IntegrationEvents.IntegrationEvents;
+using EventBus.Abstractions;
+using EventBus;
+using EventBus.RabbitMQ;
+using PersonAPI.IntegrationEvents.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +15,17 @@ builder.Services.AddDomainService();
 builder.Services.AddApplicationService();
 
 builder.Services.AddControllers();
+
+builder.Services.AddTransient<ReportRequestIntegrationEventHandler>();
+builder.Services.AddSingleton<IEventBus>(provider =>
+{
+    Configuration config = new()
+    {
+        SubClientAppName = "PersonService"
+    };
+    return new EventBusRabbitMQ(provider, config);
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -27,5 +44,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+var eventBus = app.Services.GetRequiredService<IEventBus>();
+eventBus.Subscribe<ReportRequestIntegrationEvent, ReportRequestIntegrationEventHandler>();
 
 app.Run();

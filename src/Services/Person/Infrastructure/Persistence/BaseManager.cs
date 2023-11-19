@@ -9,7 +9,7 @@ namespace Infrastructure.Persistence
 {
     public class BaseManager<T> : IBaseService<T> where T : BaseEntity
     {
-        private readonly ApplicationDbContext _context;
+        protected readonly ApplicationDbContext _context;
 
         public BaseManager(ApplicationDbContext context)
         {
