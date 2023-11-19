@@ -18,7 +18,7 @@ namespace Infrastructure.Persistence
         {
         }
 
-        public async Task<CreateReportDto> GenerateReportAsync(Guid id)
+        public async Task<CreateReportDto> GenerateReportAsync(string id)
         {
             using (var transaction = await _context.Database.BeginTransactionAsync())
             {
@@ -32,7 +32,7 @@ namespace Infrastructure.Persistence
 
                     Report report = new Report
                     {
-                        UUID = id,
+                        Id = id,
                     };
 
                     List<ReportDetail> reportDetails = new List<ReportDetail>();
@@ -50,8 +50,8 @@ namespace Infrastructure.Persistence
                         reportDetails.Add(reportDetail);
                     }
 
-                    await _context.ReportDetails.AddRangeAsync(reportDetails);
                     await _context.Reports.AddAsync(report);
+                    await _context.ReportDetails.AddRangeAsync(reportDetails);
 
                     await _context.SaveChangesAsync();
 
@@ -75,7 +75,7 @@ namespace Infrastructure.Persistence
             }
         }
 
-        public async Task<List<GetReportDetail>> GetAllReportDetail(Guid reportId)
+        public async Task<List<GetReportDetail>> GetAllReportDetail(string reportId)
         {
             return await _context.ReportDetails
                 .Where(r => r.ReportId == reportId)

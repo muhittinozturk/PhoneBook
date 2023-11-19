@@ -6,7 +6,7 @@ namespace Domain.Entities
     {
         [Key]
         public Guid UUID { get; set; }
-        public DateTime CreateTime { get; set; }
-        public DateTime UpdateTime { get; set; }
+        public DateTime CreateTime { get; set; } = DateTime.UtcNow;
+        public DateTime UpdateTime { get; set; } = DateTime.UtcNow;
     }
 }

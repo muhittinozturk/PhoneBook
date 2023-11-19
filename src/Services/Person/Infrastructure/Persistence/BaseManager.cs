@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace Infrastructure.Persistence
 {
-    public class BaseManager<T> : IBaseService<T> where T : BaseEntity
+    public class BaseManager<T> : IBaseService<T> where T : class
     {
         protected readonly ApplicationDbContext _context;
 

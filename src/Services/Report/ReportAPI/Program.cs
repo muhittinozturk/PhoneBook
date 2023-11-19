@@ -2,6 +2,7 @@ using EventBus;
 using EventBus.Abstractions;
 using EventBus.Event;
 using EventBus.RabbitMQ;
+using MongoDB.Bson;
 using ReportAPI.Data;
 using ReportAPI.Entities;
 using ReportAPI.Enums;
@@ -43,26 +44,25 @@ if (app.Environment.IsDevelopment())
 var eventBus = app.Services.GetRequiredService<IEventBus>();
 eventBus.Subscribe<ReportRequestResultIntegrationEvent, ReportRequestResultIntegrationEventHandler>();
 
-app.MapPost("/createReport", (HttpContext context, IReportRepository<Report> reportRepository) =>
+app.MapPost("/api/Report", (HttpContext context, IReportRepository<Report> reportRepository) =>
 {
-    var reportId = Guid.NewGuid();
+    var reportId = ObjectId.GenerateNewId().ToString();
     var reportRequest = new Report
     {
         Id = reportId,
-        RequestedAt = DateTime.Now,
         Status = ReportStatus.InProgress
     };
 
     reportRepository.Add(reportRequest);
 
-    IntegrationEvent reportRequestIntegrationEvent = new ReportRequestIntegrationEvent(reportId);
+    IntegrationEvent reportRequestIntegrationEvent = new ReportRequestIntegrationEvent(reportRequest.Id);
 
     eventBus.Publish(reportRequestIntegrationEvent);
 
     return Results.Ok("Rapor talebi oluþturuldu.");
 });
 
-app.MapGet("/getReports", (IReportRepository<Report> reportRepository) =>
+app.MapGet("/api/Report", (IReportRepository<Report> reportRepository) =>
 {
     var reports = reportRepository.GetAll();
     return Results.Ok(reports);

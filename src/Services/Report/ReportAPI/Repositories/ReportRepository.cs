@@ -19,9 +19,11 @@ namespace ReportAPI.Repositories
             _collection.InsertOne(entity);
         }
 
-        public T GetById(Guid id)
+        public async Task<T> GetByIdAsync(Expression<Func<T, bool>> predicate)
         {
-            return _collection.Find(Builders<T>.Filter.Eq("_id", id)).FirstOrDefault();
+            var report = await _collection.Find(predicate).FirstOrDefaultAsync();
+
+            return report;
         }
 
         public IEnumerable<T> GetAll()
@@ -34,33 +36,28 @@ namespace ReportAPI.Repositories
             return _collection.Find(filter).ToEnumerable();
         }
 
-        public void Update(T entity)
+        public async Task<T> UpdateAsync(T updateEntity, Expression<Func<T, bool>> predicate)
         {
-            var filter = Builders<T>.Filter.Eq("_id", GetIdValue(entity));
-
-            var updateDefinition = Builders<T>.Update
-                .Set("_id", GetIdValue(entity))
-                .Set(x => x, entity);
-
-            _collection.UpdateOne(filter, updateDefinition);
+            var result = await _collection.FindOneAndReplaceAsync(predicate, updateEntity);
+            return result;
         }
 
-        public void Delete(Guid id)
+        public void Delete(string id)
         {
             _collection.DeleteOne(Builders<T>.Filter.Eq("_id", id));
         }
 
-        private Guid GetIdValue(T entity)
+        private string GetIdValue(T entity)
         {
             var idProperty = entity.GetType().GetProperty("_id");
 
             if (idProperty != null)
             {
-                return (Guid)idProperty.GetValue(entity, null);
+                return idProperty.GetValue(entity, null).ToString();
             }
             else
             {
-                throw new ArgumentException("Entity must have _id property");
+                throw new ArgumentException("İstenen Id Değeri Bulunamadı");
             }
         }
     }

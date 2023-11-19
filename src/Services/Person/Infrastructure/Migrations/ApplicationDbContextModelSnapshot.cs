@@ -79,6 +79,52 @@ namespace Infrastructure.Migrations
                     b.ToTable("Persons");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Report", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Explain")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Reports");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ReportDetail", b =>
+                {
+                    b.Property<Guid>("UUID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("PersonCount")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PhoneNumberCount")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ReportId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("UUID");
+
+                    b.HasIndex("ReportId");
+
+                    b.ToTable("ReportDetails");
+                });
+
             modelBuilder.Entity("Domain.Entities.Contact", b =>
                 {
                     b.HasOne("Domain.Entities.Person", "Person")
@@ -90,9 +136,25 @@ namespace Infrastructure.Migrations
                     b.Navigation("Person");
                 });
 
+            modelBuilder.Entity("Domain.Entities.ReportDetail", b =>
+                {
+                    b.HasOne("Domain.Entities.Report", "Report")
+                        .WithMany("ReportDetails")
+                        .HasForeignKey("ReportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Report");
+                });
+
             modelBuilder.Entity("Domain.Entities.Person", b =>
                 {
                     b.Navigation("Contacts");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Report", b =>
+                {
+                    b.Navigation("ReportDetails");
                 });
 #pragma warning restore 612, 618
         }

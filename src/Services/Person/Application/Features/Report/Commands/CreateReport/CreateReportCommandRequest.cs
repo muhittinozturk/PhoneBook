@@ -10,6 +10,6 @@ namespace Application.Features.Report.Commands.CreateReport
 {
     public class CreateReportCommandRequest : IRequest<CreateReportDto>
     {
-        public Guid ReportId { get; set; }
+        public string ReportId { get; set; }
     }
 }

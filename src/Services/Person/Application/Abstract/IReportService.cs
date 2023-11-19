@@ -10,8 +10,8 @@ namespace Application.Abstract
 {
     public interface IReportService : IBaseService<Report>
     {
-        Task<CreateReportDto> GenerateReportAsync(Guid reportId);
+        Task<CreateReportDto> GenerateReportAsync(string reportId);
         Task<GetReportDetail> GetReportDetailById(Guid reportDetailId);
-        Task<List<GetReportDetail>> GetAllReportDetail(Guid reportId);
+        Task<List<GetReportDetail>> GetAllReportDetail(string reportId);
     }
 }

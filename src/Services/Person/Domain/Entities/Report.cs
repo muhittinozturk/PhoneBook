@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public  class Report: BaseEntity
+    public  class Report
     {
-        public string Explain { get; set; }
-        public ICollection<ReportDetail> ReportDetails { get; set; }
+        public string Id { get; set; }
+        public string? Explain { get; set; }
+        public ICollection<ReportDetail>? ReportDetails { get; set; }
     }
 }

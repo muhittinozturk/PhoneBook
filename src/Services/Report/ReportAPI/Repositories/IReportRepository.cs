@@ -6,10 +6,10 @@ namespace ReportAPI.Repositories
     public interface IReportRepository<T> where T : class
     {
         void Add(T entity);
-        T GetById(Guid id);
+        Task<T> GetByIdAsync(Expression<Func<T, bool>> predicate);
         IEnumerable<T> GetAll();
         IEnumerable<T> Find(Expression<Func<T, bool>> filter);
-        void Update(T entity);
-        void Delete(Guid id);
+        Task<T> UpdateAsync(T updateEntity, Expression<Func<T, bool>> predicate);
+        void Delete(string id);
     }
 }

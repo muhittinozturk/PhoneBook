@@ -11,6 +11,6 @@ namespace Application.Features.Report.Queries.GetAllReport
 {
     public class GetAllReportQueryRequest : IRequest<List<GetReportDetail>>
     {
-        public Guid ReportId { get; set; }
+        public string ReportId { get; set; }
     }
 }

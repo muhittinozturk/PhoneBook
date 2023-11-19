@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace Application.Abstract
 {
-    public interface IBaseService<T> where T : BaseEntity
+    public interface IBaseService<T> where T : class
     {
         Task<bool> AddAsync(T entity);
         IQueryable<T> GetAll();

@@ -15,23 +15,23 @@ namespace ReportAPI.IntegrationEvents.IntegrationEvents
             _reportRepository = reportRepository;
         }
 
-        public Task Handle(ReportRequestResultIntegrationEvent @event)
+        public async Task Handle(ReportRequestResultIntegrationEvent @event)
         {
-            var report = _reportRepository.GetById(@event.ReportId);
+            var report = await _reportRepository.GetByIdAsync(x => x.Id == @event.ReportId);
             if (report is null)
                 throw new ArgumentException("Rapor bulunamadı");
 
             if (@event.IsSuccess)
             {
                 report.Status = ReportStatus.Completed;
-                _reportRepository.Update(report);
             }
             else
             {
                 report.Status = ReportStatus.Failed;
-            }
+            };
 
-            return Task.CompletedTask;
+            var updateEntity = await _reportRepository.UpdateAsync(report, x => x.Id == @event.ReportId);
+
         }
     }
 }

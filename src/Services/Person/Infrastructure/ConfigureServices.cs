@@ -1,4 +1,5 @@
 ﻿using Application.Abstract;
+using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,7 @@ namespace Persistence
             services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IPersonService, PersonManager>();
+            services.AddScoped<IReportService, ReportManager>();
 
         }
     }

@@ -11,7 +11,7 @@ namespace Domain.Entities
         public string Location { get; set; }
         public int PersonCount { get; set; }
         public int PhoneNumberCount { get; set; }
-        public Guid ReportId { get; set; }
+        public string ReportId { get; set; }
         public Report Report { get; set; }
     }
 }

@@ -24,17 +24,15 @@ namespace PersonAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            GetReportQueryRequest request = new GetReportQueryRequest();
-            request.ReportDetailId = id;
-            var response = await _mediator.Send(request);
+            var response = await _mediator.Send(new GetReportQueryRequest() { ReportDetailId = id });
 
             return Ok(response);
         }
 
-        [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll()
+        [HttpGet("GetAll/{id}")]
+        public async Task<IActionResult> GetAll(string id)
         {
-            List<GetReportDetail> response = await _mediator.Send(new GetAllReportQueryRequest());
+            List<GetReportDetail> response = await _mediator.Send(new GetAllReportQueryRequest() { ReportId = id});
 
             return Ok(response);
         }
