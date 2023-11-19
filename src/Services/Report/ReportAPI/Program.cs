@@ -3,6 +3,7 @@ using EventBus.Abstractions;
 using EventBus.Event;
 using EventBus.RabbitMQ;
 using MongoDB.Bson;
+using RabbitMQ.Client;
 using ReportAPI.Data;
 using ReportAPI.Entities;
 using ReportAPI.Enums;
@@ -23,7 +24,11 @@ builder.Services.AddSingleton<IEventBus>(provider =>
 {
     Configuration config = new()
     {
-        SubClientAppName = "ReportService"
+        SubClientAppName = "ReportService",
+        Connection = new ConnectionFactory()
+        {
+            HostName = "localhost"
+        }
     };
     return new EventBusRabbitMQ(provider, config);
 });

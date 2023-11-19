@@ -1,0 +1,74 @@
+version: '3.4'
+
+services:
+  personapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5050
+    ports:
+      - "5050:5050"
+    depends_on:
+      - s_rabbitmq
+      - gatewayapi
+      - s_postgres
+    networks:
+      - net_common
+  
+  reportapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:6060
+    ports:
+      - "6060:6060"
+    depends_on:
+      - gatewayapi
+      - s_rabbitmq
+    networks:
+      - net_common
+
+  gatewayapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000
+    ports:
+      - "5000:5000"
+    networks:
+      - net_common
+
+  s_mongodb:
+    ports:
+      - "27017:27017"
+    networks:
+      - net_common
+ 
+  s_postgres:
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+    networks:
+      - net_common
+    volumes: 
+      - db:/var/lib/postgresql/data
+
+
+  s_rabbitmq:
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - net_common
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+
+
+volumes:
+  db:
+    driver: local
+  rabbitmq:
+
+networks:
+  net_common:
+    driver: bridge
+    external: true

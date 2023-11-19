@@ -17,6 +17,12 @@ namespace Persistence
             services.AddScoped<IPersonService, PersonManager>();
             services.AddScoped<IReportService, ReportManager>();
 
+            //var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
+            //    .UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
+
+            //using var dbcontext = new ApplicationDbContext(optionsBuilder.Options);
+            //dbcontext.Database.EnsureCreated();
+            //dbcontext.Database.Migrate();
         }
     }
 }

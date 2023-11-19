@@ -1,0 +1,33 @@
+version: '3.4'
+
+services:
+  personapi:
+    image: ${DOCKER_REGISTRY-}personapi
+    build:
+      context: .
+      dockerfile: src/Services/Person/PersonAPI/Dockerfile
+
+  reportapi:
+    image: ${DOCKER_REGISTRY-}reportapi
+    build:
+      context: .
+      dockerfile: src/Services/Report/ReportAPI/Dockerfile
+
+
+  gatewayapi:
+    image: ${DOCKER_REGISTRY-}gatewayapi
+    build:
+      context: .
+      dockerfile: src/ApiGateways/GatewayAPI/Dockerfile
+
+  s_mongodb:
+    container_name: mongodb
+    image: mongo
+
+  s_postgres:
+    container_name: pgsql
+    image: postgres
+
+  s_rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management-alpine

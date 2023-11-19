@@ -7,6 +7,11 @@ using EventBus.Abstractions;
 using EventBus;
 using EventBus.RabbitMQ;
 using PersonAPI.IntegrationEvents.Events;
+using System;
+using Persistence.Contexts;
+using Microsoft.EntityFrameworkCore;
+using Infrastructure.Contexts;
+using RabbitMQ.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +26,11 @@ builder.Services.AddSingleton<IEventBus>(provider =>
 {
     Configuration config = new()
     {
-        SubClientAppName = "PersonService"
+        SubClientAppName = "PersonService",
+        Connection = new ConnectionFactory()
+        {
+            HostName = "localhost"
+        }
     };
     return new EventBusRabbitMQ(provider, config);
 });
@@ -48,4 +57,7 @@ app.MapControllers();
 var eventBus = app.Services.GetRequiredService<IEventBus>();
 eventBus.Subscribe<ReportRequestIntegrationEvent, ReportRequestIntegrationEventHandler>();
 
+AddMigration.InitialMigration(app);
+
 app.Run();
+
