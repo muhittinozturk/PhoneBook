@@ -56,7 +56,8 @@ app.MapPost("/api/Report", (HttpContext context, IReportRepository<Report> repor
     var reportRequest = new Report
     {
         Id = reportId,
-        Status = ReportStatus.InProgress
+        Status = ReportStatus.InProgress,
+        ResultMessage = "Rapor Oluþturma Ýsteði Yapýldý"
     };
 
     reportRepository.Add(reportRequest);
@@ -65,7 +66,7 @@ app.MapPost("/api/Report", (HttpContext context, IReportRepository<Report> repor
 
     eventBus.Publish(reportRequestIntegrationEvent);
 
-    return Results.Ok("Rapor talebi oluþturuldu.");
+    return Results.Ok("Rapor oluþturma talebi iletildi.");
 });
 
 app.MapGet("/api/Report", (IReportRepository<Report> reportRepository) =>

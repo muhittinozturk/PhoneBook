@@ -30,6 +30,8 @@ namespace ReportAPI.IntegrationEvents.IntegrationEvents
                 report.Status = ReportStatus.Failed;
             };
 
+            report.ResultMessage = @event.Message;
+
             var updateEntity = await _reportRepository.UpdateAsync(report, x => x.Id == @event.ReportId);
 
         }

@@ -13,5 +13,6 @@ namespace ReportAPI.Entities
         public DateTime RequestedAt { get; set; } = DateTime.UtcNow; 
 
         public ReportStatus Status { get; set; }
+        public string? ResultMessage { get; set; }
     }
 }

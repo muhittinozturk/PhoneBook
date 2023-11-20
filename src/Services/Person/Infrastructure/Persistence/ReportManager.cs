@@ -30,6 +30,16 @@ namespace Infrastructure.Persistence
                         .Distinct()
                         .ToList();
 
+                    if (locations.Count == 0)
+                    {
+                        return new()
+                        {
+                            Message = "Herhangi bir lokasyon mevcut olmadığından rapor oluşturulamadı.",
+                            IsSuccess = false,
+                            ReportId = id,
+                        };
+                    }
+
                     Report report = new Report
                     {
                         Id = id,
@@ -58,7 +68,7 @@ namespace Infrastructure.Persistence
                     await transaction.CommitAsync();
 
                     return new()
-                    {
+                    {   Message = "Rapor Oluşturuldu",
                         IsSuccess = true,
                         ReportId = id,
                     };
@@ -70,6 +80,7 @@ namespace Infrastructure.Persistence
                     {
                         IsSuccess = false,
                         Message = ex.Message,
+                        ReportId= id,
                     };
                 }
             }
