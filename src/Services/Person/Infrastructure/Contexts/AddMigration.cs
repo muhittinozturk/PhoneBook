@@ -20,6 +20,7 @@ namespace Infrastructure.Contexts
                 .GetRequiredService<ApplicationDbContext>();
             dbContext.Database.EnsureCreated();
             dbContext.Database.Migrate();
+            new AppContextSeeding().SeedAsync(dbContext);
         }
     }
 }

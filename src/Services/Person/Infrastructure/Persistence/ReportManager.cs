@@ -43,6 +43,7 @@ namespace Infrastructure.Persistence
                     Report report = new Report
                     {
                         Id = id,
+                        Explain = $"{DateTime.UtcNow.ToString()} tarihinde oluşturuldu.",
                     };
 
                     List<ReportDetail> reportDetails = new List<ReportDetail>();
@@ -92,6 +93,7 @@ namespace Infrastructure.Persistence
                 .Where(r => r.ReportId == reportId)
                 .Select(r => new GetReportDetail()
                 {
+                    Id = r.UUID,
                     Location = r.Location,
                     PersonCount = r.PersonCount,
                     PhoneNumberCount = r.PhoneNumberCount,
