@@ -31,7 +31,8 @@ builder.Services.AddSingleton<IEventBus>(provider =>
             Port = 5672
         }
     };
-    return new EventBusRabbitMQ(provider, config);
+    var logger = provider.GetRequiredService<ILogger<RabbitMQConnection>>();
+    return new EventBusRabbitMQ(provider, config, logger);
 });
 
 

@@ -1,6 +1,7 @@
 ﻿using EventBus.Abstractions;
 using EventBus.Event;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
@@ -22,10 +23,12 @@ namespace EventBus.RabbitMQ
         private readonly IRabbitMQConnection _persistentConnection;
         private readonly IConnectionFactory _connectionFactory;
         private readonly IModel consumerChannel;
-        public EventBusRabbitMQ(IServiceProvider serviceProvider, Configuration configuration) : base(serviceProvider, configuration)
+        private readonly ILogger<RabbitMQConnection> _logger;
+        public EventBusRabbitMQ(IServiceProvider serviceProvider, Configuration configuration, ILogger<RabbitMQConnection> logger) : base(serviceProvider, configuration)
         {
+            _logger = logger;
             _connectionFactory = (ConnectionFactory)configuration.Connection;
-            _persistentConnection = new RabbitMQConnection(_connectionFactory);
+            _persistentConnection = new RabbitMQConnection(_connectionFactory, _logger);
             consumerChannel = CreateConsumerChannel();
 
             _subscriptionsManager.OnEventRemoved += _subscriptionsManager_OnEventRemoved;
