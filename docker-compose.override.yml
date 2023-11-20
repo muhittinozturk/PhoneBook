@@ -4,9 +4,9 @@ services:
   personapi:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:5050
+      - ASPNETCORE_URLS=http://+:6060
     ports:
-      - "5050:5050"
+      - "6060:6060"
     depends_on:
       - s_rabbitmq
       - gatewayapi
@@ -17,9 +17,9 @@ services:
   reportapi:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:6060
+      - ASPNETCORE_URLS=http://+:5050
     ports:
-      - "6060:6060"
+      - "5050:5050"
     depends_on:
       - gatewayapi
       - s_rabbitmq

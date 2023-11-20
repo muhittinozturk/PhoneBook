@@ -18,7 +18,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "presonapi",
+          "Host": "personapi",
           "Port": 6060
         }
       ],
@@ -41,6 +41,6 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5000"
+    "BaseUrl": "http://gatewayapi:5000"
   }
 }
