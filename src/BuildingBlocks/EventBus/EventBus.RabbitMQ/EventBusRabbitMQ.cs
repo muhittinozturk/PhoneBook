@@ -24,7 +24,7 @@ namespace EventBus.RabbitMQ
         private readonly IModel consumerChannel;
         public EventBusRabbitMQ(IServiceProvider serviceProvider, Configuration configuration) : base(serviceProvider, configuration)
         {
-            _connectionFactory = new ConnectionFactory();
+            _connectionFactory = (ConnectionFactory)configuration.Connection;
             _persistentConnection = new RabbitMQConnection(_connectionFactory);
             consumerChannel = CreateConsumerChannel();
 

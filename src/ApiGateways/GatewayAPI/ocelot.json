@@ -41,6 +41,6 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "https://gatewayapi:5000"
+    "BaseUrl": "http://localhost:5000"
   }
 }

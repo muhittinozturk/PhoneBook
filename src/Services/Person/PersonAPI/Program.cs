@@ -29,7 +29,8 @@ builder.Services.AddSingleton<IEventBus>(provider =>
         SubClientAppName = "PersonService",
         Connection = new ConnectionFactory()
         {
-            HostName = "localhost"
+            HostName = "rabbitmq",
+            Port = 5672
         }
     };
     return new EventBusRabbitMQ(provider, config);
@@ -54,6 +55,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+await Task.Delay(4000);
 var eventBus = app.Services.GetRequiredService<IEventBus>();
 eventBus.Subscribe<ReportRequestIntegrationEvent, ReportRequestIntegrationEventHandler>();
 

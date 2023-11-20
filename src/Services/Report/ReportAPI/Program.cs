@@ -27,7 +27,8 @@ builder.Services.AddSingleton<IEventBus>(provider =>
         SubClientAppName = "ReportService",
         Connection = new ConnectionFactory()
         {
-            HostName = "localhost"
+            HostName = "rabbitmq",
+            Port = 5672
         }
     };
     return new EventBusRabbitMQ(provider, config);
@@ -45,7 +46,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+await Task.Delay(4000);
 var eventBus = app.Services.GetRequiredService<IEventBus>();
 eventBus.Subscribe<ReportRequestResultIntegrationEvent, ReportRequestResultIntegrationEventHandler>();
 
