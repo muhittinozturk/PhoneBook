@@ -27,7 +27,7 @@ builder.Services.AddSingleton<IEventBus>(provider =>
         SubClientAppName = "ReportService",
         Connection = new ConnectionFactory()
         {
-            HostName = "rabbitmq",
+            HostName = "localhost",
             Port = 5672
         }
     };
@@ -77,3 +77,7 @@ app.MapGet("/api/Report", (IReportRepository<Report> reportRepository) =>
 });
 
 app.Run();
+public partial class Program
+{
+
+}

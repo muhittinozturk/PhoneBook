@@ -23,7 +23,6 @@ namespace Application.Features.Person.Commands.UpdatePerson
             person.FirstName = request.FirstName;
             person.LastName = request.LastName;
             person.Company = request.Company;
-            person.Contacts = request.Contacts;
 
             var result = _personService.Update(person);
 

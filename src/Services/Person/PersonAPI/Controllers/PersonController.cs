@@ -22,20 +22,31 @@ namespace PersonAPI.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(Guid id)
-        {   GetPersonQueryRequest request = new GetPersonQueryRequest();
-            request.PersonId = id;
-            GetPersonQueryResponse response = await _mediator.Send(request);
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery] Guid id)
+        {
+            try
+            {
+                GetPersonQueryRequest request = new GetPersonQueryRequest();
+                request.PersonId = id;
+                GetPersonQueryResponse response = await _mediator.Send(request);
 
-            return Ok(response);
+                return response.PersonId != null ? Ok(response) : NotFound();
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+
         }
+
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
             List<GetPersonListQueryResponse> response = await _mediator.Send(new GetPersonListQueryRequest());
 
-            return Ok(response);
+            return response.Count > 0 ? Ok(response) : NoContent();
         }
 
         [HttpPost]
@@ -51,14 +62,14 @@ namespace PersonAPI.Controllers
         {
             var result = await _mediator.Send(request);
 
-            return result.IsSuccess ? StatusCode((int)HttpStatusCode.Created) : BadRequest();
+            return result.IsSuccess ? StatusCode((int)HttpStatusCode.OK) : BadRequest();
         }
-        [HttpDelete]
-        public async Task<IActionResult> Delete(DeletePersonCommandRequest request)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
         {
-            var result = await _mediator.Send(request);
+            var result = await _mediator.Send(new DeletePersonCommandRequest { Id = id});
 
-            return result.IsSuccess ? StatusCode((int)HttpStatusCode.Created) : BadRequest();
+            return result.IsSuccess ? StatusCode((int)HttpStatusCode.OK) : BadRequest();
         }
     }
 }

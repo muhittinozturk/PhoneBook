@@ -47,7 +47,7 @@ namespace Infrastructure.Contexts
             {
                 new Person
                 {
-                    UUID = Guid.NewGuid(),
+                    UUID = Guid.Parse("1fbaa46e-2271-428b-85a4-7da7562b172c"),
                     FirstName = "John",
                     LastName = "Doe",
                     Company = "ABC Corp",
@@ -77,7 +77,7 @@ namespace Infrastructure.Contexts
                 },
                 new Person
                 {
-                    UUID = Guid.NewGuid(),
+                    UUID = Guid.Parse("e2f4d30b-c4a7-46f1-ba5b-3c45f81ba5a7"),
                     FirstName = "Jane",
                     LastName = "Smith",
                     Company = "XYZ Inc",

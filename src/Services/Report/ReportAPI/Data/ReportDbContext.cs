@@ -3,7 +3,7 @@ using ReportAPI.Entities;
 
 namespace ReportAPI.Data
 {
-    public class ReportDbContext<T>
+    public class ReportDbContext<T> : IReportDbContext<T> where T : class
     {
         private readonly IMongoDatabase _database;
 
@@ -14,6 +14,7 @@ namespace ReportAPI.Data
             _database = client.GetDatabase(settings.DatabaseName);
         }
 
+        public IMongoDatabase GetDatabase() => _database;
         public IMongoCollection<T> Reports => _database.GetCollection<T>("Reports");
     }
 }
