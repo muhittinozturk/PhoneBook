@@ -27,7 +27,7 @@ builder.Services.AddSingleton<IEventBus>(provider =>
         SubClientAppName = "ReportService",
         Connection = new ConnectionFactory()
         {
-            HostName = "localhost",
+            HostName = "rabbitmq",
             Port = 5672
         }
     };

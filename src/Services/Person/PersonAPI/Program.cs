@@ -29,7 +29,7 @@ builder.Services.AddSingleton<IEventBus>(provider =>
         SubClientAppName = "PersonService",
         Connection = new ConnectionFactory()
         {
-            HostName = "localhost",
+            HostName = "rabbitmq",
             Port = 5672
         }
     };
