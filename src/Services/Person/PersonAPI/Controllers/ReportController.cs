@@ -1,12 +1,8 @@
 ﻿using Application.Dtos;
-using Application.Features.Person.Commands.AddPerson;
-using Application.Features.Person.Commands.DeletePerson;
 using Application.Features.Report.Queries.GetAllReport;
 using Application.Features.Report.Queries.GetReport;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace PersonAPI.Controllers
 {

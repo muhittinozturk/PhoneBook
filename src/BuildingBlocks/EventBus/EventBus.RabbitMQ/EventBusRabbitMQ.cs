@@ -1,19 +1,9 @@
-﻿using EventBus.Abstractions;
-using EventBus.Event;
-using Microsoft.Extensions.DependencyInjection;
+﻿using EventBus.Event;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using RabbitMQ.Client.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Reflection.Metadata;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Channels;
-using System.Threading.Tasks;
 
 
 namespace EventBus.RabbitMQ

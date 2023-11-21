@@ -24,15 +24,11 @@ namespace Report.Test.Unit
                 ResultMessage = "Test Message"
             };
 
-            // Configure the Add method of the repository mock
             reportRepositoryMock.Setup(repo => repo.Add(It.IsAny<ReportAPI.Entities.Report>()));
 
-            // Configure the GetByIdAsync method of the repository mock
-            reportRepositoryMock?
-                .Setup(repo => repo.GetByIdAsync(It.IsAny<Expression<Func<ReportAPI.Entities.Report, bool>>>()))
+            reportRepositoryMock?.Setup(repo => repo.GetByIdAsync(It.IsAny<Expression<Func<ReportAPI.Entities.Report, bool>>>()))
                 .ReturnsAsync((Expression<Func<ReportAPI.Entities.Report, bool>> predicate) =>
                 {
-                    // Simulate a scenario where the predicate is used to filter the reports
                     var reports = new List<ReportAPI.Entities.Report>
                     {
                         new ReportAPI.Entities.Report
@@ -58,7 +54,6 @@ namespace Report.Test.Unit
             var retrievedReport = await reportRepositoryMock.Object.GetByIdAsync(p => p.Id == report.Id);
 
             // Assert
-            // Verify that the Add method was called on the repository mock
             reportRepositoryMock.Verify(repo => repo.Add(It.IsAny<ReportAPI.Entities.Report>()), Times.Once);
 
             // Additional Assertions

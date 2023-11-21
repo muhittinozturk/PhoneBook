@@ -64,7 +64,6 @@ AddMigration.InitialMigration(app);
 
 app.Run();
 
-
 public partial class Program
 {
 }

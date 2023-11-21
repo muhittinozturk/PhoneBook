@@ -4,7 +4,6 @@ using Application.Features.Person.Commands.UpdatePerson;
 using Application.Features.Person.Queries.GetPerson;
 using Application.Features.Person.Queries.GetPersonList;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 

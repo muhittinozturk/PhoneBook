@@ -13,7 +13,6 @@ using ReportAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddScoped(typeof(ReportDbContext<>));
 builder.Services.AddScoped(typeof(IReportRepository<>), typeof(ReportRepository<>));
@@ -77,7 +76,4 @@ app.MapGet("/api/Report", (IReportRepository<Report> reportRepository) =>
 });
 
 app.Run();
-public partial class Program
-{
-
-}
+public partial class Program{}
