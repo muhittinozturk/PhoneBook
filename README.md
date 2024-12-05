@@ -101,11 +101,16 @@ graph TD
   end
 
   subgraph ReportService
-    C -->|Comman Query| E(MongoDB)
-    C -->|Publish| F(RabbitMQ)
+    C -->|Command Query| E(MongoDB)
+    C -->|Publish/Subscribe| F(RabbitMQ)
   end
 
   subgraph PersonService
     D -->|Command Query| G(PostgreSQL)
-    D -->|Publish| H(RabbitMQ)
+    D -->|Publish/Subscribe| F
   end
+
+  subgraph RabbitMQ
+    F
+  end
+
