@@ -100,14 +100,23 @@ graph TD
     B -->|Forward to| D(PersonService)
   end
 
-  C(ReportService) -->|Command Query| E(MongoDB)
-  D(PersonService) -->|Command Query| G(PostgreSQL)
+  subgraph ReportService
+    C -->|Command Query| E(MongoDB)
+  end
 
-  C -->|Publish| H(RabbitMQ)
+  subgraph PersonService
+    D -->|Command Query| G(PostgreSQL)
+  end
+
+  subgraph RabbitMQ
+    H(RabbitMQ)
+  end
+
+  C -->|Publish| H
   D -->|Publish| H
-
-  H(RabbitMQ) -->|Subscribe| C
+  H -->|Subscribe| C
   H -->|Subscribe| D
+
 
 
 
