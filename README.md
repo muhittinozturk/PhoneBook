@@ -89,24 +89,20 @@ Run docker compose
 
 
 ### Microservice Schema
-mermaid
+```mermaid
 graph TD
-  
-    subgraph Client
-      A(Client) -->|HTTP Request| B(ApiGateway)
-    end
-    
-    subgraph ApiGateway
-      B -->|Forward to| C(ReportService)
-      B -->|Forward to| D(PersonService)
-    end
-    
-    subgraph ReportService
-      C -->|Comman Query| E(MongoDB)
-      C -->|Publish| F(RabbitMQ)
-    end
-    
-    subgraph PersonService
-      D -->|Command Query| G(PostgreSQL)
-      D -->|Publish| H(RabbitMQ)
-    end
+  subgraph Client
+    A(Client) -->|HTTP Request| B(ApiGateway)
+  end
+  subgraph ApiGateway
+    B -->|Forward to| C(ReportService)
+    B -->|Forward to| D(PersonService)
+  end
+  subgraph ReportService
+    C -->|Comman Query| E(MongoDB)
+    C -->|Publish| F(RabbitMQ)
+  end
+  subgraph PersonService
+    D -->|Command Query| G(PostgreSQL)
+    D -->|Publish| H(RabbitMQ)
+  end
