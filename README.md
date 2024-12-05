@@ -102,7 +102,7 @@ graph TD
 
   subgraph ReportService
     C -->|Command Query| E(MongoDB)
-    C -->|Publish/Subscribe| F(RabbitMQ)
+    C -->|Publish/Subscribe| F
   end
 
   subgraph PersonService
@@ -110,7 +110,9 @@ graph TD
     D -->|Publish/Subscribe| F
   end
 
-  subgraph RabbitMQ
-    F
+   subgraph ReportService
+    F -->|Publish / Subscribe| C(RbbitMQ)
+    F -->|Publish / Subscribe| D(RbbitMQ)
+  end
   end
 
