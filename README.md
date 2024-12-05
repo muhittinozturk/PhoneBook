@@ -114,5 +114,4 @@ graph TD
     F -->|Publish / Subscribe| C(RbbitMQ)
     F -->|Publish / Subscribe| D(RbbitMQ)
   end
-  end
 
